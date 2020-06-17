@@ -1,6 +1,12 @@
 """This module documents an http client with cache behavior, used by this package.
 """
+import memorize
+
 from .http import HttpClient, Response
+
+
+def key_maker(args, kwds, typed, **kwargs):
+    return memorize.core._make_key(args, kwds, typed, **kwargs)
 
 
 class CacheEnabledHttpClient(HttpClient):
@@ -43,6 +49,7 @@ class CacheEnabledHttpClient(HttpClient):
 
         return resp
 
+    @memorize(maxsize=128, timeout=0, key=foo)
     def get(self, url, params=None, headers=None, **kwargs):
         """HTTP get.
 
