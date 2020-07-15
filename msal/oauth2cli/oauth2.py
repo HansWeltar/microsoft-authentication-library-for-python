@@ -219,6 +219,7 @@ class BaseClient(object):
             self.configuration["token_endpoint"],
             headers=_headers, params=params, data=_data,
             **kwargs)
+        print("TESTING: ", self._cache_enabled_http_client._cache)
         if resp.status_code >= 500:
             resp.raise_for_status()  # TODO: Will probably retry here
         try:
